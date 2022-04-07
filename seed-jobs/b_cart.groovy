@@ -6,9 +6,4 @@ multibranchPipelineJob('CI-Pipelines/cart') {
       repository('https://github.com/raghudevopsb63/cart')
     }
   }
-  orphanedItemStrategy {
-    discardOldItems {
-      numToKeep(20)
-    }
-  }
 }
