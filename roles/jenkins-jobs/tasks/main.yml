@@ -2,7 +2,7 @@
   shell: "{{JENKINS_CLI_PREFIX}} who-am-i "
 
 - name: Create Jenkins Job
-  import_tasks: job.yaml
+  include_tasks: roles/jenkins-jobs/tasks/job.yaml
   loop:
     - {name: "sample1", repoName: "sample1"}
 
