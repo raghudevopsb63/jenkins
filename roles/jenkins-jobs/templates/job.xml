@@ -27,7 +27,7 @@
                     <credentialsId>GitHub</credentialsId>
                     <repoOwner>raghudevopsb63</repoOwner>
                     <repository>cart</repository>
-                    <repositoryUrl>https://github.com/raghudevopsb63/{{repoName}}</repositoryUrl>
+                    <repositoryUrl>https://github.com/raghudevopsb63/{{item.repoName}}</repositoryUrl>
                     <traits>
                         <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
                             <strategyId>1</strategyId>
