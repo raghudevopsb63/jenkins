@@ -15,4 +15,3 @@
 - name: Create a Job
   when: check_job.rc == 3
   shell: "{{JENKINS_CLI_PREFIX}} create-job {{item.name}}"
-  
