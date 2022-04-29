@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+
+  stages {
+
+    stage('VPC') {
+      steps {
+        dir('VPC') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-vpc.git'
+          sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+        }
+      }
+    }
+
+    stage('DB') {
+      steps {
+        dir('DB') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+          sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+        }
+      }
+    }
+
+  }
+
+}

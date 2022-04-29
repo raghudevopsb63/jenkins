@@ -2,4 +2,5 @@ PIPELINE_JOBS:
     - {name: "terraform-vpc", repoName: "terraform-vpc", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
     - {name: "terraform-databases", repoName: "terraform-databases", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
     - {name: "Terraform-Destroy", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Destroy"}
+    - {name: "Terraform-Create", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Create"}
 
