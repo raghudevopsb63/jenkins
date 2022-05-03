@@ -5,4 +5,9 @@ PIPELINE_JOBS:
     - {name: "Terraform-Destroy", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Destroy"}
     - {name: "Terraform-Create", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Create"}
     - {name: "cart", repoName: "cart", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+    - {name: "catalogue", repoName: "catalogue", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+    - {name: "user", repoName: "user", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+    - {name: "shipping", repoName: "shipping", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+    - {name: "payment", repoName: "payment", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+    - {name: "frontend", repoName: "frontend", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
 
