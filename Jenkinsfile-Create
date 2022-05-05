@@ -16,18 +16,36 @@ pipeline {
       }
     }
 
-    stage('DB') {
-      steps {
-        dir('DB') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
-          sh '''
+    stage('ALB-n-DB') {
+      parallel {
+        stage('DB') {
+          steps {
+            dir('DB') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+              sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
             terraform apply -var-file=env-dev/dev.tfvars -auto-approve
           '''
+            }
+          }
+        }
+
+        stage('ALB') {
+          steps {
+            dir('ALB') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-loadbalancers.git'
+              sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
         }
       }
     }
+
 
   }
 
