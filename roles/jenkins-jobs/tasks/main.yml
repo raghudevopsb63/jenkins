@@ -11,7 +11,7 @@
   include_tasks: mb-job.yml
   loop: "{{MB_JOBS}}"
 
-- name: Create Jenkins Multi Branch Pipelines
+- name: Create Jenkins Pipelines
   include_tasks: pipeline-job.yml
   loop: "{{PIPELINE_JOBS}}"
 
