@@ -25,7 +25,8 @@ pipeline {
               sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve || true 
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve 
           '''
             }
           }
