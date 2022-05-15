@@ -43,6 +43,18 @@ pipeline {
           '''
             }
           }
+
+          stage('IAM') {
+            steps {
+              dir('ALB') {
+                git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-iam-roles.git'
+                sh '''
+                  terraform init -backend-config=env-prod/prod-backend.tfvars
+                  terraform apply -var-file=env-prod/prod.tfvars -auto-approve
+                '''
+              }
+            }
+
         }
       }
     }
