@@ -44,6 +44,8 @@ pipeline {
             }
           }
 
+        }
+
           stage('IAM') {
             steps {
               dir('ALB') {
@@ -58,7 +60,6 @@ pipeline {
           
         }
       }
-    }
 
     stage('Backend') {
       parallel {
