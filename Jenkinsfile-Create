@@ -48,7 +48,7 @@ pipeline {
 
           stage('IAM') {
             steps {
-              dir('ALB') {
+              dir('IAM') {
                 git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-iam-roles.git'
                 sh '''
                   terraform init -backend-config=env-prod/prod-backend.tfvars
