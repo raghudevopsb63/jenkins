@@ -70,7 +70,7 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
               sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.1
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
@@ -85,7 +85,7 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
               sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.1
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
@@ -100,7 +100,7 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
               sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.1
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
@@ -115,7 +115,7 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
               sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.1
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
@@ -130,7 +130,7 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
               sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.2
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
@@ -148,7 +148,7 @@ pipeline {
           git branch: 'main', url: 'https://github.com/raghudevopsb63/frontend.git'
           sh '''
             cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.0
+            export TF_VAR_APP_VERSION=2.0.1
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform apply -var-file=env-prod/prod.tfvars -auto-approve
