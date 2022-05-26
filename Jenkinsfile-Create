@@ -64,7 +64,7 @@ pipeline {
             dir('CATALOGUE') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
               sh '''
-echo
+                helm upgrade -i -f values.yaml catalogue ../CHART
           '''
             }
           }
@@ -75,7 +75,7 @@ echo
             dir('USER') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
               sh '''
-echo
+                helm upgrade -i -f values.yaml user ../CHART
           '''
             }
           }
@@ -86,7 +86,7 @@ echo
             dir('PAYMENT') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
               sh '''
-echo
+              helm upgrade -i -f values.yaml payment ../CHART
           '''
             }
           }
@@ -97,7 +97,18 @@ echo
             dir('SHIPPING') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
               sh '''
-echo
+                helm upgrade -i -f values.yaml catalogue ../CHART
+          '''
+            }
+          }
+        }
+
+        stage('FRONTEND') {
+          steps {
+            dir('FRONTEND') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/frontend.git'
+              sh '''
+                helm upgrade -i -f values.yaml frontend ../CHART
           '''
             }
           }
