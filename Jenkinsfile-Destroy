@@ -9,7 +9,7 @@ pipeline {
           git branch: 'main', url: 'https://github.com/raghudevopsb63/kubernetes.git'
           sh '''
             cd eks
-            make create
+            make destroy
           '''
         }
       }
@@ -22,8 +22,8 @@ pipeline {
           sh '''
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform apply -var-file=env-prod/prod.tfvars -auto-approve || true 
-            terraform apply -var-file=env-prod/prod.tfvars -auto-approve 
+            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve || true 
+            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve 
           '''
         }
       }
@@ -35,8 +35,8 @@ pipeline {
           git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-vpc.git'
           sh '''
             terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
+            terraform destroy -backend-config=env-prod/prod-backend.tfvars
+            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
           '''
         }
       }
