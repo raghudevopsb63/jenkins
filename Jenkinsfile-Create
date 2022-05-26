@@ -47,9 +47,11 @@ pipeline {
 
         stage('CART') {
           steps {
+            dir('CHART') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/roboshop-helm-chart.git'
+            }
             dir('CART') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/roboshop-helm-chart.git'
               sh '''
                   ls -ltr
                 '''
