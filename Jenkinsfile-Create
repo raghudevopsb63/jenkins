@@ -97,7 +97,7 @@ pipeline {
             dir('SHIPPING') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
               sh '''
-                helm upgrade -i -f values.yaml catalogue ../CHART
+                helm upgrade -i -f values.yaml shipping ../CHART
           '''
             }
           }
