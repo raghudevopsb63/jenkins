@@ -53,6 +53,7 @@ pipeline {
             dir('CART') {
               git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
               sh '''
+                  ls -ltr
                   helm upgrade -i -f values.yml cart ../CHART
                 '''
             }
