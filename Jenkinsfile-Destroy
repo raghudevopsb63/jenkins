@@ -3,130 +3,28 @@ pipeline {
 
   stages {
 
-    stage('FRONTEND') {
+    stage('EKS') {
       steps {
-        dir('FRONTEND') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/frontend.git'
+        dir('EKS') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/kubernetes.git'
           sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.1
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
+            cd eks
+            make create
           '''
         }
       }
     }
-    
 
-    stage('Backend') {
-      parallel {
-
-        stage('CART') {
-          steps {
-            dir('CART') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
-              sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.1
+    stage('DB') {
+      steps {
+        dir('DB') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+          sh '''
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve || true 
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve 
           '''
-            }
-          }
-        }
-
-        stage('CATALOGUE') {
-          steps {
-            dir('CATALOGUE') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
-              sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.1
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
-        }
-
-        stage('USER') {
-          steps {
-            dir('USER') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
-              sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.1
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
-        }
-
-        stage('PAYMENT') {
-          steps {
-            dir('PAYMENT') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
-              sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.1
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
-        }
-
-        stage('SHIPPING') {
-          steps {
-            dir('SHIPPING') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
-              sh '''
-            cd terraform-immutable
-            export TF_VAR_APP_VERSION=2.0.2
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
-        }
-
-      }
-    }
-
-
-    stage('ALB-n-DB') {
-      parallel {
-        stage('DB') {
-          steps {
-            dir('DB') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
-              sh '''
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
-        }
-
-        stage('ALB') {
-          steps {
-            dir('ALB') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-loadbalancers.git'
-              sh '''
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
-          '''
-            }
-          }
         }
       }
     }
@@ -138,7 +36,7 @@ pipeline {
           sh '''
             terrafile -f env-prod/Terrafile
             terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
         }
       }
@@ -146,4 +44,11 @@ pipeline {
 
   }
 
+  post {
+    always {
+      cleanWs()
+    }
+  }
+
 }
+
