@@ -16,19 +16,19 @@ pipeline {
       }
     }
 
-    stage('DB') {
-      steps {
-        dir('DB') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
-          sh '''
-            terrafile -f env-prod/Terrafile
-            terraform init -backend-config=env-prod/prod-backend.tfvars
-            terraform apply -var-file=env-prod/prod.tfvars -auto-approve || true 
-            terraform apply -var-file=env-prod/prod.tfvars -auto-approve 
-          '''
-        }
-      }
-    }
+//    stage('DB') {
+//      steps {
+//        dir('DB') {
+//          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+//          sh '''
+//            terrafile -f env-prod/Terrafile
+//            terraform init -backend-config=env-prod/prod-backend.tfvars
+//            terraform apply -var-file=env-prod/prod.tfvars -auto-approve || true
+//            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
+//          '''
+//        }
+//      }
+//    }
 
     stage('EKS') {
       steps {
@@ -41,6 +41,69 @@ pipeline {
         }
       }
     }
+
+    stage('Backend') {
+      parallel {
+
+        stage('CART') {
+          steps {
+            dir('CART') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/roboshop-helm-chart.git'
+              sh '''
+                  ls -ltr
+                '''
+            }
+          }
+        }
+
+        stage('CATALOGUE') {
+          steps {
+            dir('CATALOGUE') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
+              sh '''
+echo
+          '''
+            }
+          }
+        }
+
+        stage('USER') {
+          steps {
+            dir('USER') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
+              sh '''
+echo
+          '''
+            }
+          }
+        }
+
+        stage('PAYMENT') {
+          steps {
+            dir('PAYMENT') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
+              sh '''
+echo
+          '''
+            }
+          }
+        }
+
+        stage('SHIPPING') {
+          steps {
+            dir('SHIPPING') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
+              sh '''
+echo
+          '''
+            }
+          }
+        }
+
+      }
+    }
+
 
   }
 
