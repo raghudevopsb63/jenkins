@@ -35,7 +35,7 @@ pipeline {
           git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-vpc.git'
           sh '''
             terrafile -f env-prod/Terrafile
-            terraform destroy -backend-config=env-prod/prod-backend.tfvars
+            terraform init -backend-config=env-prod/prod-backend.tfvars
             terraform destroy -var-file=env-prod/prod.tfvars -auto-approve
           '''
         }
