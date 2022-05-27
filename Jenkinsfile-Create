@@ -37,6 +37,7 @@ pipeline {
           sh '''
             cd eks
             make create
+            aws eks update-kubeconfig --name prod-eks-cluster
           '''
         }
       }
